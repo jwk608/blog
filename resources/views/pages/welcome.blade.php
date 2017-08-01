@@ -79,7 +79,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Welcome
+                    <p>This is the beginning</p>
                 </div>
 
                 <div class="links">
