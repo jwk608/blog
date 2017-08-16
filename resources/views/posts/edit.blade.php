@@ -34,7 +34,7 @@
 							<div class="col-sm-6">
 					            <button type="submit" class="btn btn-success btn-block">Save</button>
 					            <input type="hidden" name="_token" value="{{ Session::token() }}">
-					            {{ method_field('PUT') }}							
+					            {{ method_field('PATCH') }}							
               				</div>												
 						</div>				
 					</div>
