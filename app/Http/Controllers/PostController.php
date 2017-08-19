@@ -16,7 +16,8 @@ class PostController extends Controller
     public function index()
     {
         //create a variable and store all the blog in it from database
-        $posts = Post::orderBy('updated_at','desc')->paginate(5);
+        $posts = Post::orderBy('id','desc')->paginate(5);
+
         //return
         return view('posts.index')->withPosts($posts);
     }
@@ -42,6 +43,7 @@ class PostController extends Controller
         //validate the data
         $this->validate($request, array(
                 'title'=>'required|max:255',
+                'slug' =>'required|alpha_dash|min:5|max:255|unique:posts,slug',
                 'body' =>'required'
             ));
 
@@ -49,7 +51,8 @@ class PostController extends Controller
         $post = new Post();
 
         $post -> title = $request->title;
-        $post -> body =$request ->body;
+        $post -> body = $request->body;
+        $post -> slug = $request->slug;
 
         $post->save();
 
@@ -96,10 +99,19 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //validate date
-        $this->validate($request, array(
-                'title'=>'required|max:255',
-                'body' =>'required'
+        $post = Post::find($id);
+        if($request->input('slug')== $post->slug ){
+            $this->validate($request, array(
+                    'title'=>'required|max:255',
+                    'body' =>'required'
             ));
+        }else{
+            $this->validate($request, array(
+                    'title'=>'required|max:255',
+                    'slug' =>'required|alpha_dash|min:5|max:255|unique:posts,slug',
+                    'body' =>'required'
+            ));
+        }
 
         //save data to the database
         
@@ -107,6 +119,7 @@ class PostController extends Controller
         $post =  Post::find($id);
 
         $post->title = $request->input('title');
+        $post->slug = $request->input('slug');
         $post->body = $request->input('body');
 
         $post->save();
@@ -115,6 +128,7 @@ class PostController extends Controller
         //redirect with flash data to posts.show
 
         return redirect()->route('posts.show', $post->id);
+        
     }
 
     /**

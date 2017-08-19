@@ -11,6 +11,10 @@
 						<input type="text" class="form-control input-lg" name="title" id="title" value="{{$post->title}}" rows="1">	
 					</div>
 					<div class="form-group">
+					 	<label for="slug" class="form-spacing-top">Slug</label>
+						<input type="text" class="form-control input-lg" name="slug" id="slug" value="{{$post->slug}}" rows="1"  >	
+					</div>
+					<div class="form-group">
 						<label for="body" class="form-spacing-top">Body</label>
 						<textarea class="form-control input-lg" name="body" id="body" rows="10">{{$post->body}}</textarea>	
 					</div>
@@ -29,7 +33,7 @@
 						<hr>
 						<div class="row">
 							<div class="col-sm-6">
-		 						<a href="{{  route('posts.show', $post->id, 'Cancle')  }}" class="btn btn-danger btn-block"> Back</a>﻿						
+		 						<a href="{{  route('posts.show', $post->id, 'Cancle')  }}" class="btn btn-danger btn-block"> Back</a>﻿		
 							</div>
 							<div class="col-sm-6">
 					            <button type="submit" class="btn btn-success btn-block">Save</button>

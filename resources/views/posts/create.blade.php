@@ -23,6 +23,10 @@
 	        <input id="title" name="title" class="form-control" data-parsley-required	maxlength="255">
 	      </div>
 	      <div class="form-group">
+	        <label name="slug">Slug</label>
+	        <textarea id="slug" name="slug" rows="1" class="form-control" data-parsley-required minlength="5" maxlength="255" ></textarea>
+	      </div>
+	      <div class="form-group">
 	        <label name="body">Post Body:</label>
 	        <textarea id="body" name="body" rows="10" class="form-control" data-parsley-required ></textarea>
 	      </div>
