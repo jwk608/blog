@@ -10,6 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Authentication Routes
+Auth::routes();
+Route::get('auth/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('auth/login', 'Auth\LoginController@login');
+Route::post('auth/logout', 'Auth\LoginController@logout')->name('logout');
+//Registration Routes
+
+Route::get('auth/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('auth/register', 'Auth\RegisterController@register');
+
 
 Route::get('blog/{slug}', ['as'=> 'blog.single', 'uses' => 'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
 
