@@ -27,6 +27,14 @@
 	        <textarea id="slug" name="slug" rows="1" class="form-control" data-parsley-required minlength="5" maxlength="255" ></textarea>
 	      </div>
 	      <div class="form-group">
+	        <label name="category_id">Category</label>
+	        <select class="form-control" name="category_id">
+	        	@foreach($categories as $category)
+	        	<option value="{{ $category->id }}">{{ $category->name }}</option>
+	        	@endforeach
+	        </select>
+	      </div>
+	      <div class="form-group">
 	        <label name="body">Post Body:</label>
 	        <textarea id="body" name="body" rows="10" class="form-control" data-parsley-required ></textarea>
 	      </div>

@@ -11,6 +11,14 @@
 						<input type="text" class="form-control input-lg" name="title" id="title" value="{{$post->title}}" rows="1">	
 					</div>
 					<div class="form-group">
+				        <label name="category_id">Category</label>
+				        <select class="form-control" name="category_id">
+				        	@foreach($categories as $category)
+				        	<option value="{{ $category->id }}">{{ $category->name }}</option>
+				        	@endforeach
+				        </select>
+					</div>
+					<div class="form-group">
 					 	<label for="slug" class="form-spacing-top">Slug</label>
 						<input type="text" class="form-control input-lg" name="slug" id="slug" value="{{$post->slug}}" rows="1"  >	
 					</div>
