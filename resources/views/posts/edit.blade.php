@@ -2,6 +2,14 @@
 
 @section('title', '| Edit blog Post')
 
+@section('stylesheets')
+
+<link rel="stylesheet" href="/css/parsley.css">
+<link rel="stylesheet" href="/css/select2.min.css">
+
+
+@endsection
+
 @section('content')
 	<div class="row">
 		<form method="POST" action="{{ route('posts.update', $post->id) }}">
@@ -18,6 +26,14 @@
 				        	@endforeach
 				        </select>
 					</div>
+					<div class="form-group">
+			        <label name="tags">Tags</label>
+			        <select class="form-control select2-multi"  name="tags[]" multiple="multiple">
+			        	@foreach($tags as $tag)
+			        	<option value="{{ $tag->id }}">{{ $tag->name }}</option>
+			        	@endforeach
+			        </select>
+			      </div>
 					<div class="form-group">
 					 	<label for="slug" class="form-spacing-top">Slug</label>
 						<input type="text" class="form-control input-lg" name="slug" id="slug" value="{{$post->slug}}" rows="1"  >	
@@ -54,3 +70,14 @@
 		</form>
 	</div>
 @endsection
+
+@section('scripts')
+
+<script language="JavaScript" src="/js/parsley.min.js"></script>
+<script language="JavaScript" src="/js/select2.min.js"></script>
+<script type="text/javascript">
+		$(".select2-multi").select2();
+
+        $('.select2-multi').select2().val({!! json_encode($post->tags->pluck('id')) !!} ).trigger('change');﻿
+      </script>
+ @endsection

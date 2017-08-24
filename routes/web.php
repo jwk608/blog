@@ -30,6 +30,8 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //resource gives all CRUD routes
 Route::resource('categories', 'CategoryController',['except' => ['create']]);
 
+//Tags
+Route::resource('tags', 'TagController',['except' => ['create']]);
 
 Route::get('blog/{slug}', ['as'=> 'blog.single', 'uses' => 'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
 
@@ -40,6 +42,7 @@ Route::get('/', 'PagesController@getIndex');
 Route::get('/about', 'PagesController@getAbout');
 
 Route::get('/contact', 'PagesController@getContact');
+Route::post('/contact', 'PagesController@postContact');
 
 Route::resource('posts', 'PostController');
 

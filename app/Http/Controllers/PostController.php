@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Session;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -34,7 +35,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('posts.create')->withCategories($categories);
+        $tags = Tag::all();
+        return view('posts.create')->withCategories($categories)->withTags($tags);
     }
 
     /**
@@ -45,6 +47,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+       // dd($request);
         //validate the data
         $this->validate($request, array(
                 'title'         =>'required|max:255',
@@ -62,6 +65,8 @@ class PostController extends Controller
         $post -> slug = $request->slug;
 
         $post->save();
+
+        $post->tags()->sync($request->tags, false);
 
         Session::flash('success','THe blog post was successfully saved!');
         //redirect to another page
@@ -94,11 +99,10 @@ class PostController extends Controller
         //find the post in the database and save as a var
         $post = Post::find($id);
         $categories = Category::all();
-        $cats = array();
-        foreach($categories as $category){
-            $cats[$category->id] = $category->name;
-        }
-        return view('posts.edit')-> withPost($post)->withCategories($categories);
+        $tags = Tag::all();
+
+
+        return view('posts.edit')-> withPost($post)->withCategories($categories)->withTags($tags);
     }
 
     /**
@@ -138,7 +142,8 @@ class PostController extends Controller
         $post->body = $request->input('body');
 
         $post->save();
-
+        //second parameter false prevents overriding, true since we want to overrride
+        $post->tags()->sync($request->tags);
         Session::flash('success','The blog post was successfully Edited!');
         //redirect with flash data to posts.show
 
@@ -155,6 +160,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        $post->tags()->detach();
 
         $post -> delete();
 
