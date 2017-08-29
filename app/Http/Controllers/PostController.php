@@ -7,7 +7,8 @@ use Session;
 use App\Post;
 use App\Category;
 use App\Tag;
-
+use Purifier;
+use Image;
 class PostController extends Controller
 {
     public function __construct(){
@@ -60,9 +61,19 @@ class PostController extends Controller
         $post = new Post();
 
         $post -> title = $request->title;
-        $post -> body = $request->body;
+        $post -> body = Purifier::clean($request->body);
         $post -> category_id = $request->category_id;
         $post -> slug = $request->slug;
+
+        //save our image
+        if($request->hasFile('featured_image')){
+            $image =$request->file('featured_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($image)->resize(800,400)->save($location);
+            
+            $post->image =$filename;
+        }
 
         $post->save();
 
@@ -82,6 +93,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
+
         $post = Post::find($id);
 
 
@@ -139,7 +151,7 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
         $post->category_id = $request->input('category_id');
-        $post->body = $request->input('body');
+        $post->body = Purifier::clean($request->input('body'));
 
         $post->save();
         //second parameter false prevents overriding, true since we want to overrride

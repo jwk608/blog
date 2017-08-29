@@ -4,9 +4,17 @@
 
 @section('stylesheets')
 
-<link rel="stylesheet" href="/css/parsley.css">
-<link rel="stylesheet" href="/css/select2.min.css">
+	<link rel="stylesheet" href="/css/parsley.css">
+	<link rel="stylesheet" href="/css/select2.min.css">
+	<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 
+	<script>
+		tinymce.init({
+			selector: 'textarea',
+			plugins: 'link',
+			menubar: false
+		});
+	</script>
 
 @endsection
 
@@ -18,14 +26,14 @@
 	  <div class="col-md-8 col-md-offset-2">
 	    <h1>Create New Post</h1>
 	    <hr>
-	    <form method="POST" data-parsley-validate action="{{ route('posts.store') }}">
+	    <form method="POST" enctype="multipart/form-data" data-parsley-validate action="{{ route('posts.store') }}">
 	      <div class="form-group">
 	        <label name="title">Title:</label>
 	        <input id="title" name="title" class="form-control" data-parsley-required	maxlength="255">
 	      </div>
 	      <div class="form-group">
 	        <label name="slug">Slug</label>
-	        <textarea id="slug" name="slug" rows="1" class="form-control" data-parsley-required minlength="5" maxlength="255" ></textarea>
+	        <input type="text" id="slug" name="slug" rows="1" class="form-control" data-parsley-required minlength="5" maxlength="255" >
 	      </div>
 	      <div class="form-group">
 	        <label name="category_id">Category</label>
@@ -44,8 +52,12 @@
 	        </select>
 	      </div>
 	      <div class="form-group">
+	        <label name="featured_image">Upload Featured Image:</label>
+	        <input type="file" name="featured_image">
+	      </div>	      
+	      <div class="form-group">
 	        <label name="body">Post Body:</label>
-	        <textarea id="body" name="body" rows="10" class="form-control" data-parsley-required ></textarea>
+	        <textarea id="body" name="body" rows="10" class="form-control" data-parsley ></textarea>
 	      </div>
 	      <input type="submit" value="Create Post" class="btn btn-success btn-lg btn-block">
 	      <input type="hidden" name="_token" value="{{ Session::token() }}">

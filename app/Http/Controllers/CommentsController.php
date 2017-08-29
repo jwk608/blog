@@ -9,24 +9,11 @@ use Session;
 
 class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function __construct()
     {
-        //
+        $this->middleware('auth', ['except' => 'store']);
     }
 
     /**
@@ -37,8 +24,9 @@ class CommentsController extends Controller
      */
     public function store(Request $request, $post_id)
     {
+
         $this->validate($request, array(
-            'name' => 'required | max:255',
+            'name' => 'required|max:255',
             'email' => 'required|email|max:255',
             'comment' => 'required |min:5|max:2000'
             ));
@@ -59,17 +47,6 @@ class CommentsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -77,6 +54,7 @@ class CommentsController extends Controller
      */
     public function edit($id)
     {
+
         $comment = Comment::find($id);
         return view('comments.edit')->withComment($comment);
     }
