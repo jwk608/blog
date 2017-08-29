@@ -21,7 +21,7 @@
 
 @section('content')
 	<div class="row">
-		<form method="POST" action="{{ route('posts.update', $post->id) }}">
+		<form method="POST" enctype="multipart/form-data" action="{{ route('posts.update', $post->id) }}">
 				<div class="col-md-8">
 					<div class="form-group">
 					 	<label for="title">Title</label>
@@ -47,6 +47,10 @@
 					 	<label for="slug" class="form-spacing-top">Slug</label>
 						<input type="text" class="form-control input-lg" name="slug" id="slug" value="{{$post->slug}}" rows="1"  >	
 					</div>
+					<div class="form-group">
+	 		       <label name="featured_image">Upload Featured Image:</label>
+	     		   <input type="file" name="featured_image" value="featured_image">
+	  		  		 </div>	   
 					<div class="form-group">
 						<label for="body" class="form-spacing-top">Body</label>
 						<textarea class="form-control input-lg" name="body" id="body" rows="10">{{$post->body}}</textarea>	

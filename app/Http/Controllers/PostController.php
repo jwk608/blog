@@ -9,6 +9,8 @@ use App\Category;
 use App\Tag;
 use Purifier;
 use Image;
+use Storage;
+
 class PostController extends Controller
 {
     public function __construct(){
@@ -54,7 +56,8 @@ class PostController extends Controller
                 'title'         =>'required|max:255',
                 'slug'          =>'required|alpha_dash|min:5|max:255|unique:posts,slug',
                 'category_id'   =>'required|integer',
-                'body'          =>'required'
+                'body'          =>'required',
+                'featured_image'=>'sometimes|image'
             ));
 
         //store in the database
@@ -128,20 +131,15 @@ class PostController extends Controller
     {
         //validate date
         $post = Post::find($id);
-        if($request->input('slug')== $post->slug ){
+
             $this->validate($request, array(
                     'title'=>'required|max:255',
+                    'slug' =>"required|alpha_dash|min:5|max:255|unique:posts,slug, $id",
                     'category_id'   =>'required|integer',
-                    'body' =>'required'
+                    'body' =>'required',    
+                    'featured_image' =>'image'
             ));
-        }else{
-            $this->validate($request, array(
-                    'title'=>'required|max:255',
-                    'slug' =>'required|alpha_dash|min:5|max:255|unique:posts,slug',
-                    'category_id'   =>'required|integer',
-                    'body' =>'required'
-            ));
-        }
+        
 
         //save data to the database
         
@@ -154,6 +152,24 @@ class PostController extends Controller
         $post->body = Purifier::clean($request->input('body'));
 
         $post->save();
+
+      
+        if($request->hasFile('featured_image')){
+            //add new photo
+            $image =$request->file('featured_image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($image)->resize(800,400)->save($location);
+            $oldFilename = $post->image;
+
+            //update database
+            $post->image =$filename;
+            //Delete old photo 
+            Storage::delete($oldFilename);
+        }
+    
+        $post->save();
+        
         //second parameter false prevents overriding, true since we want to overrride
         $post->tags()->sync($request->tags);
         Session::flash('success','The blog post was successfully Edited!');
@@ -173,6 +189,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->tags()->detach();
+        Storage::delete($post->image);
 
         $post -> delete();
 
