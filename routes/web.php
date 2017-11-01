@@ -15,8 +15,17 @@ Auth::routes();
 Route::get('auth/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('auth/login', 'Auth\LoginController@login');
 Route::get('auth/logout','Auth\LoginController@logout')->name('logout');
-//Registration Routes
 
+//Admin Routes
+
+Route::prefix('admin')->group(function() {
+	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+	Route::get('/', 'AdminController@index')->name('admin.dashboard');
+});
+
+
+//Registration Routes
 Route::get('auth/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('auth/register', 'Auth\RegisterController@register');
 

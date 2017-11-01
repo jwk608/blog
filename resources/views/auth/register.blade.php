@@ -5,7 +5,9 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">          
+        <div class="col-md-6 col-md-offset-3"> 
+            <h2>Register</h2>         
+            <hr>
             <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" class="form-control" data-parsley-required>

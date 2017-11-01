@@ -1,11 +1,13 @@
 @extends('main')
 
-@section('title', '| Login')
+@section('title', '| Admin Login')
 
 @section('content')
+
     <div class="row">
         <div class="col-md-6 col-md-offset-3"> 
-            <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+            <h2>Admin Login</h2>
+            <form class="form-horizontal" method="POST" action="{{ route('admin.login.submit') }}">
                 <label name="email" id="email" value="email">Email</label>
                 <input type="text" id="email" name="email" class="form-control" data-parsley-required>
 
@@ -17,8 +19,6 @@
                 <br>
                 <input type="submit" value="submit" class="btn btn-primary btn-block">
 
-                <p><a href="{{ url('auth/register')}}">Register Now!</a>
-                <p><a href="{{ url('password/reset')}}">Forgot Password</a>
                 {!! csrf_field() !!}
             </form>
         </div>
