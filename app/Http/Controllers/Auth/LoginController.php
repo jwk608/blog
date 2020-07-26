@@ -56,7 +56,7 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {       
 
-        $user = Socialite::driver('github')->user();
+        $user = Socialite::driver('github')->stateless()->user();
 
         //check if user already signed up manually with regular signup method
         $alreadyMember = User::where('email', $user->getEmail())->where('provider_id', null)->first();
