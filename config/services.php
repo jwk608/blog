@@ -35,16 +35,17 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),         // Your Google Client ID
-        'client_secret' => env('AIzaSyBvC-tKjkWD4XjmSM5fgADp8g9cjFlMAN4'), // Your Google Client Secret
-        'redirect' => 'http://your-callback-url',
+
+    'github'    => [
+        'client_id'     => env('GITHUB_ID'),
+        'client_secret' => env('GITHUB_SECRET'),
+        'redirect'      => env('GITHUB_CALLBACK'),
     ],
-    
-    'github' => [
-        'client_id' => env('GITHUB_CLIENT_ID'),         // Your GitHub Client ID
-        'client_secret' => env('GITHUB_CLIENT_SECRET'), // Your GitHub Client Secret
-        'redirect' => env('GITHUB_CALLBACK'),
+
+    'twitter'    => [
+        'client_id'     => env('TWITTER_ID'),
+        'client_secret' => env('TWITTER_SECRET'),
+        'redirect'      => env('TWITTER_CALLBACK'),
     ],
     
 ];
