@@ -47,5 +47,11 @@ return [
         'client_secret' => env('TWITTER_SECRET'),
         'redirect'      => env('TWITTER_CALLBACK'),
     ],
+
+    'facebook'    => [
+        'client_id'     => env('FACEBOOK_ID'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'redirect'      => env('FACEBOOK_CALLBACK'),
+    ],
     
 ];
