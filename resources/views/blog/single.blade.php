@@ -7,8 +7,10 @@
 @section('content')
 
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="co.l-md-8 col-md-offset-2">
+			@if($post->image)
 			<img src="{{ asset('images/' . $post->image)}}" height="400" width="800">
+			@endif
 			<h1>{{ $post->title}}</h1>
 			<p>{!! $post->body !!}</p>
 			<hr>
