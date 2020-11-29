@@ -10,13 +10,7 @@
 		<div class="col-md-2">
 			<a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-primary pull-right btn-block" style="margin-top:20px">Edit</a>
 		</div>
-		<div class="col-md-2">
-			<form method="POST" action="{{ route('tags.destroy', $tag->id) }}">
-				<input type="submit" value="Delete" class="btn btn-danger pull-right btn-block" style="margin-top:20px" >
-				<input type="hidden" name="_token" value="{{ Session::token() }}">
-				{{ method_field('DELETE') }}
-			</form>﻿				
-		</div>
+
 	</div>
 
 	<div class="row">
