@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Post;
 use App\Category;
@@ -10,6 +11,7 @@ use App\Tag;
 use Purifier;
 use Image;
 use Storage;
+
 
 class PostController extends Controller
 {
@@ -24,9 +26,8 @@ class PostController extends Controller
     public function index()
     {
         //create a variable and store all the blog in it from database
-        $posts = Post::orderBy('id','desc')->paginate(5);
+        $posts = Post::where('user_id', '=', Auth::id())->orderBy('id','desc')->paginate(5);
 
-        //return
         return view('posts.index')->withPosts($posts);
     }
 
@@ -50,6 +51,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
        // dd($request);
         //validate the data
         $this->validate($request, array(
@@ -66,6 +68,7 @@ class PostController extends Controller
         $post -> title = $request->title;
         $post -> body = Purifier::clean($request->body);
         $post -> category_id = $request->category_id;
+        $post -> user_id = Auth::id();
         $post -> slug = $request->slug;
 
         //save our image
