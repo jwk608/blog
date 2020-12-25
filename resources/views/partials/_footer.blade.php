@@ -22,7 +22,7 @@
     
     <div class="footer-bottom">
         <div class="container">
-            <p class="pull-left"> Designed by ©Jayden 2017. </p>
+            <p class="pull-left"> Designed by ©Jayden 2020. </p>
         </div>
     </div>
     <!--/.footer-bottom--> 

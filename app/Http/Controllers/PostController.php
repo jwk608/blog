@@ -145,7 +145,7 @@ class PostController extends Controller
         
 
         //save data to the database
-        
+
 
         $post =  Post::find($id);
 
@@ -153,9 +153,6 @@ class PostController extends Controller
         $post->slug = $request->input('slug');
         $post->category_id = $request->input('category_id');
         $post->body = Purifier::clean($request->input('body'));
-
-        $post->save();
-
       
         if($request->hasFile('featured_image')){
             //add new photo

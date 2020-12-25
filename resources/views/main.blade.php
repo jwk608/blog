@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
   @include('partials._head')
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+
   </head>
   
   <body>

@@ -17,8 +17,8 @@ Route::post('auth/login', 'Auth\LoginController@login');
 Route::get('auth/logout','Auth\LoginController@logout')->name('logout');
 
 //Socialite Routes
-// Route::get('login/github', 'Auth\LoginController@redirectToProvider');
-// Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+ Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+ Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('socialauth/{provider}', 'Auth\SocialAuthController@redirectToProvider');
 Route::get('socialauth/{provider}/callback', 'Auth\SocialAuthController@handleProviderCallback');
 
